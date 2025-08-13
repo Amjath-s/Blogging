@@ -191,7 +191,7 @@
 
 // export default Post;
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import appwriteService from "../appwrite/store";
 import { Button, FollowBtn } from "../component";
@@ -208,7 +208,9 @@ function Post() {
   const [comment, setComment] = useState([]);
   const [content, setContent] = useState([]);
   const [authorinfo, setAuthorInfo] = useState();
+  const [commentlength,setCommentLength]=useState()
   const { slug } = useParams();
+  const commentRef=useRef(null)
   const navigate = useNavigate();
 
   const userData = useSelector((state) => state.auth.userData);
@@ -222,6 +224,7 @@ function Post() {
           postId: post.$id,
         });
         setComment(response.documents);
+        setCommentLength(response.documents.length)
       } catch (error) {
         console.error("Failed to fetch comments", error);
       }
@@ -278,6 +281,18 @@ function Post() {
         Loading...
       </div>
     );
+  }
+
+
+  const commentScroll = () =>
+  {
+    console.log("comment section clicked")
+  
+    if (commentRef.current)
+    {
+      commentRef.current.scrollIntoView({ behavior: "smooth" });
+
+    }
   }
 
   // useEffect(() =>
@@ -367,7 +382,7 @@ function Post() {
   return (
     <>
       <div className="py-3 flex justify-center  flex-col w-full max-w-10xl min-w-1xl md:flex-wrap md:flex-grow md:shrink-0 ">
-        <div className="mx-6" >
+        <div className="mx-6">
           <h3 className="font-extrabold text-2xl"> {post.Tag} </h3>
         </div>
         <div className="border-t-1 flex flex-col justify-center mx-auto  w-full items-center my-4 ">
@@ -396,8 +411,12 @@ function Post() {
             </div>
 
             <div className=" border-b-1 border-teal border-t-1 p-2 mb-5">
-              total comment and likes wil be here
-              <Likes postId={post?.$id} userId={userData?.$id} />
+              <div className="flex flex-row gap-3">
+                <Likes postId={post?.$id} userId={userData?.$id} />
+                <span className="font-normal text-2xl cursor-pointer" onClick={commentScroll}>
+                  <span>&#128172;</span> {commentlength}
+                </span>
+              </div>
             </div>
             {post.FeaturedImage && (
               <img
@@ -414,7 +433,7 @@ function Post() {
         </div>
       </div>
       <section className="border-t pt-10 flex  flex-col  mx-auto  w-full">
-        <div className=" w-[80%] justify-center mx-auto">
+        <div className=" w-[80%] justify-center mx-auto " ref={commentRef}>
           <CommentInput
             postId={post.$id}
             parentcommentId={null}
