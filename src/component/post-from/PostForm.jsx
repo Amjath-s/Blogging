@@ -55,6 +55,7 @@ function PostForm({ post }) {
           ...data,
           featuredImage: fileId,
           userId: userData.$id,
+          like:0,
         });
         if (dbpost) {
           navigate(`/post/${dbpost.$id}`);
@@ -160,7 +161,8 @@ function PostForm({ post }) {
         />
 
         <Select
-          options={['AI', 'Science', 'IT', 'Personality', 'CS']}
+          options={['Ai', 'Technology', 'psychology', 'Health', 'Fitness', 'Food', 'Travel', 'Lifestyle', 'Education', 'Finance', 'Business', 'Entertainment', 'Fashion', 'Sports', 'Gaming', 'Art', 'Photography', 'Music', 'Books', 'Movies', 'Environment'
+          ]}
           label="Tag"
           className="mb-4"
           {...register("tag",{required:true})}

@@ -117,7 +117,7 @@ function Header() {
 
   return (
     <>
-      <header className="fixed left-0 top-0 bg-white w-full px-5 py-2  flex  flex-row  border-b-2 ">
+      <header className=" fixed left-0  bg-white w-full px-5 py-2  flex  flex-row  border-b-2 z-50 ">
         <div className="flex flex-row w-full  item-center  relative">
           <div className="absolute flex-row flex justify-between">
             

@@ -15,6 +15,7 @@ import Authlayout from "./component/AuthLayout.jsx";
 import Addpost from "./Pages/AddPost.jsx";
 import Profile from "./Pages/Profile.jsx";
 import AuthorInfo from "./Pages/AuthorInfo.jsx";
+import Tagpost from "./Pages/Tagpost.jsx";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +87,14 @@ const router = createBrowserRouter([
         path: "/post/:slug",
         element: <Post />,
       },
+      {
+        path: "/tag/:tag",
+        element: (
+          <Authlayout authentication>
+            <Tagpost />
+          </Authlayout>
+        ),
+      }
     ],
   },
 ]);

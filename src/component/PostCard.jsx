@@ -49,9 +49,15 @@ import { Link, useNavigate } from "react-router-dom";
 import parse from "html-react-parser";
 import edjsHTML from "editorjs-html";
 
-
-function PostCard({ $id, Title, FeaturedImage, Content, Author, UserId,Caption }) {
- 
+function PostCard({
+  $id,
+  Title,
+  FeaturedImage,
+  Content,
+  Author,
+  UserId,
+  Caption,
+}) {
   // return (
   //   <div className="group flex bg-white border border-gray-100 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden min-h-[150px]">
   //     {/* Image Thumbnail, side-by-side */}
@@ -77,7 +83,6 @@ function PostCard({ $id, Title, FeaturedImage, Content, Author, UserId,Caption }
   //         <div className="text-base text-gray-600 mb-3 line-clamp-2">
   //           {" "}
   //           {console.log(Content)}
-
 
   //           {/* edjsParser.parse(data.blocks) */}
   //         </div>
@@ -119,55 +124,49 @@ function PostCard({ $id, Title, FeaturedImage, Content, Author, UserId,Caption }
   // );
 
   console.log($id, Title, FeaturedImage, Content, Author, UserId);
-  const navigate= useNavigate()
+  const navigate = useNavigate();
 
   return (
-  
     <>
-
-
-      <div className="flex flex-row p-8 border-1 border-amber-100  ">
-        <div className="w-[180px] h-[150px]">
+      <div className="flex flex-col sm:flex-row bg-white border border-amber-100 rounded-2xl p-4 sm:p-6 md:p-8 shadow-sm transition-all duration-200 mb-4">
+        {/* Image Section */}
+        <div className="w-full sm:w-48 md:w-56 flex-shrink-0 h-40 sm:h-32 md:h-40 rounded-2xl overflow-hidden bg-green-600 flex items-center justify-center mb-4 sm:mb-0">
           {FeaturedImage && (
-             <img
-            src={appWriteService.getFileUrl(FeaturedImage)}
-            alt={Title}
-            className="w-full h-full rounded-2xl"
-          />
+            <img
+              src={appWriteService.getFileUrl(FeaturedImage)}
+              alt={Title}
+              className="object-cover w-full h-full rounded-2xl"
+            />
           )}
         </div>
 
-
-        
-        <div className="flex flex-col mx-9">
-          <div className="">
-            {Author === null         }
-            <p>{ `Written by : ${Author}`}</p>
+        {/* Content Section */}
+        <div className="flex flex-col flex-1 sm:ml-6">
+          <div className="mb-2">
+            <p className="text-xs text-gray-500">{`Written by : ${Author}`}</p>
           </div>
-          <div>
-            <h1 className="font-extrabold text-2xl">{Title}</h1>
-            <p className="font-normal-800"> {Caption}</p>
-
+          <div className="mb-2">
+            <h1 className="font-extrabold text-lg md:text-2xl mb-1 line-clamp-2">
+              {Title}
+            </h1>
+            <p className="text-gray-700 text-sm md:text-base line-clamp-3">
+              {Caption}
+            </p>
           </div>
-        
-          <p>likes
-          </p>
-          <p>comment</p>
-          <button onClick={()=>navigate(`/post/${$id}`)}> clicke here</button>
-
+          <div className="flex items-center gap-4 mt-2">
+            <p className="text-xs text-gray-400">likes</p>
+            <p className="text-xs text-gray-400">comment</p>
+          </div>
+          <button
+            onClick={() => navigate(`/post/${$id}`)}
+            className="mt-4 px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors text-sm w-max"
+          >
+            Click here
+          </button>
         </div>
-    </div>
-    
+      </div>
     </>
-)
-
-
-
-
-
-
-
-
+  );
 }
 
 export default PostCard;

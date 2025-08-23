@@ -184,7 +184,7 @@
                     className="w-60 py-3 rounded-xl border-none bg-blue-600 text-white font-bold text-lg shadow-lg hover:bg-blue-700 transition duration-200"
                     onClick={(e) => {e.preventDefault ,setDisable(false)}}
                   >
-                    EDit
+                    Ecit
                   </button>
                 )}
               </div>

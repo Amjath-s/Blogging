@@ -14,6 +14,7 @@ import PostForm from "./post-from/PostForm";
 import FollowBtn from "./FollowBtn"
 import Search from "./search/Search"
 import Authlayout from "./AuthLayout";
+import Trending from "./Trending";
 
 
 export {
@@ -32,6 +33,7 @@ export {
     PostForm,
     FollowBtn,
     Search,
+    Trending
 
 
 

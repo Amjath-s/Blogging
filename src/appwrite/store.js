@@ -22,7 +22,8 @@ export class StoreService {
     userId,
     author,
     caption,
-    tag
+    tag,
+    like,
   }) {
     try {
       return await this.database.createDocument(
@@ -40,7 +41,8 @@ export class StoreService {
           UserId: userId,
           userInfo: userId,
           Caption: caption,
-          Tag:tag
+          Tag: tag,
+          LikedCount: like,
         }
       );
     } catch (error) {
@@ -96,7 +98,17 @@ export class StoreService {
       throw error;
     }
   }
-  async getPosts(queries = [Query.equal("Status", "active")]) {
+  // queries = [Query.equal("Status", "active")];
+  async getPosts(limit = 5, cursor = null) {
+    const queries = [
+      Query.equal("Status", "active"),
+      Query.limit(limit),
+      Query.orderDesc("$createdAt"),
+    ];
+    if (cursor) {
+      queries.push(Query.cursorAfter(cursor));
+    }
+
     try {
       return await this.database.listDocuments(
         config.appwriteDatabaseId,
@@ -154,10 +166,52 @@ export class StoreService {
   }
   //for likes
 
+  async updateLikeCount(postId) {
+    try {
+      //counting post like
+      const likelist = await this.database.listDocuments(
+        config.appwriteDatabaseId,
+        config.appwriteLikesId,
+        [Query.equal("POSTID", postId)]
+      );
+      const likeCount = likelist.total;
+      //updating like count in post table
+      await this.database.updateDocument(
+        config.appwriteDatabaseId,
+        config.appwriteCollectionId,
+        postId, // Use slug as the document ID
+        {
+          LikedCount: likeCount,
+        }
+      );
+      console.log("like count updated");
+    } catch (error) {
+      console.log("error in updating like count", error);
+    }
+  }
+
+
+
+  async tredingpost(limit = 5) {
+    try {
+      return await this.database.listDocuments(
+        config.appwriteDatabaseId,
+        config.appwriteCollectionId,
+        [
+          Query.equal("Status", "active"),
+          Query.orderDesc("LikedCount"),
+          Query.limit(limit),
+        ]
+      );
+    } catch (error) {
+      console.log("error in fetching trending post", error);
+    }
+  }
+
   async postLike({ postId, userId }) {
     console.log("postlike owrking");
     try {
-      return await this.database.createDocument(
+      await this.database.createDocument(
         config.appwriteDatabaseId,
         config.appwriteLikesId,
         ID.unique(),
@@ -166,6 +220,8 @@ export class StoreService {
           USERID: userId,
         }
       );
+      console.log("like created");
+      return this.updateLikeCount(postId);
     } catch (error) {
       console.log(error);
     }
@@ -192,12 +248,14 @@ export class StoreService {
       );
       if (resp.documents.length > 0) {
         const docId = resp.documents[0].$id;
-        return await this.database.deleteDocument(
+        await this.database.deleteDocument(
           config.appwriteDatabaseId,
           config.appwriteLikesId,
           docId
         );
       }
+      // Always update like count after delete attempt
+      return await this.updateLikeCount(postId);
     } catch (error) {
       console.log("error in deleting", error);
     }
