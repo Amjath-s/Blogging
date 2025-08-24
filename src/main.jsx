@@ -16,6 +16,8 @@ import Addpost from "./Pages/AddPost.jsx";
 import Profile from "./Pages/Profile.jsx";
 import AuthorInfo from "./Pages/AuthorInfo.jsx";
 import Tagpost from "./Pages/Tagpost.jsx";
+import ProfileForm from "./component/ProfileForm.jsx";
+import UserPost from "./Pages/UserPost.jsx";
 
 const router = createBrowserRouter([
   {
@@ -70,9 +72,21 @@ const router = createBrowserRouter([
         path: "/profile",
         element: (
           <Authlayout authentication>
-            <Profile/>
-          </Authlayout>
-        )
+            <Profile />,
+
+          </Authlayout>  
+        ),
+        children: [
+          {
+            path: "/profile",
+            element: <ProfileForm />,
+          },
+          {
+            path: "/profile/posts",
+            element: <UserPost />,
+          }
+          
+        ]
 
       },
       {

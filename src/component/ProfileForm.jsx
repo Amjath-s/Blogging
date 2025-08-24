@@ -89,14 +89,14 @@
     
 
     return (
-      <div className="flex items-center flex-col w-full justify-center min-h-screen bg-gradient-to-br from-blue-100 to-purple-100">
-        <div className="bg-white rounded-3xl shadow-2xl px-10 pt-10 pb-8 w-full max-w-2xl">
+      <div className="flex items-center flex-col w-full justify-center min-h-screen ">
+        <div className=" rounded-3xl shadow-2xl px-10 pt-10 pb-8 w-full max-w-2xl">
           {/* Big profile header visual with avatar and basic fields */}
           <div className="flex flex-col items-center mb-8">
             <div className="relative">
               {/* Avatar Preview Circle */}
 
-              <div className="h-28 w-28 rounded-full bg-gray-200 border-4 border-blue-300 flex items-center justify-center overflow-hidden shadow">
+              <div className="h-28 w-28 rounded-full bg-gray-200 border-4  flex items-center justify-center overflow-hidden shadow">
                 {imageFile && imageFile.length > 0 ? (
                   <img
                     src={URL.createObjectURL(imageFile[0])}
@@ -112,7 +112,7 @@
                 disabled={disable}
                 type="file"
                 accept="image/png, image/jpg, image/jpeg, image/gif"
-                className="absolute right-0 bottom-0 bg-blue-600 text-white p-1 rounded-full cursor-pointer shadow-md text-xs"
+                className="absolute right-0 bottom-0 text-white p-1 rounded-full cursor-pointer shadow-md text-xs"
                 style={{ width: "36px", height: "36px", opacity: 1 }}
                 {...register("image")}
                 onChange={(e) => {
