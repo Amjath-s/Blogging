@@ -12,18 +12,23 @@ export class AuthorService {
     this.databases = new Databases(this.client);
     this.bucket = new Storage(this.client);
   }
-  async postAuthorInfo({ name, about, avatar, userId, interest}) {
+  async postAuthorInfo({ authorname,about,avatar,  userId, interest,profession,tagline,twitterurl,profileurl,email}) {
     try {
       return await this.databases.upsertDocument(
         config.appwriteDatabaseId,
         config.appwriteAuthorCollectionId,
         userId,
         {
-          AUTHORNAME: name,
+          AUTHORNAME:authorname,
           AVATAR: avatar,
           ABOUT: about,
-          USERID: userId,
+          USERID: userId,   
           INTEREST: interest,
+          PROFESSION: profession,
+          TAGLINE: tagline,
+          PROFILEURL: profileurl,
+          TWITTERURL: twitterurl,
+          EMAIL:email
         }
       );
     } catch (error) {
@@ -60,6 +65,42 @@ export class AuthorService {
     );
 
   }
+  async ensureAuthor({user})
+  {
+    console.log("the ensure author woking ")
+    try {
+      const author =  await this.getAuthorInfo({ USERID: user.$id })
+      console.log("author",author)
+      if (!author.documents.length)
+      {
+        console.log("the inside of if autro exusfre")
+        await this.postAuthorInfo(
+          {
+            authorname: user.name,
+            about: "",
+            userId: user.$id,
+            interest: "",
+            profession: "",
+            tagline: "",
+            twitterurl: "",
+            profileurl: "",
+            email:user?.email||""
+            
+
+          
+          }
+        )
+
+      }
+      
+    }
+    catch (error)
+    {
+      throw error
+    }
+  }
+
+
 }
 
 

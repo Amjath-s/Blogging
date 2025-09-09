@@ -133,6 +133,22 @@ export class StoreService {
     }
   }
 
+  async getUserPosts(userId) {
+    try {
+      return await this.database.listDocuments(
+        config.appwriteDatabaseId,
+        config.appwriteCollectionId,
+        [Query.equal("UserId", userId), Query.orderDesc("$createdAt")]
+      );
+    } catch (error) {
+      console.log("error in fetch user post", error);
+    }
+  }
+
+
+
+  
+
   //file uplaod services
 
   async uplaodFile(file) {

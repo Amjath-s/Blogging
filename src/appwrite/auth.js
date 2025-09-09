@@ -1,5 +1,6 @@
 import { use } from "react";
 import config from "../conf/config";
+import authorService from "./authorService";
 import { Client, Account, ID } from "appwrite";
 
 export class AuthService {
@@ -66,7 +67,23 @@ export class AuthService {
       return true;
     }
   }
- 
+    async loginWithGoogle(redirectUrl = window.location.origin) {
+      console.log("this thingis wokring or not ")
+      try { 
+        // This will redirect the user to Google for authentication
+        return await this.account.createOAuth2Session(
+          "google",
+          "http://localhost:5173/profile", // Success redirect URL
+          "http://localhost:5173/" // Failure redirect URL
+        )
+  
+
+        
+      } catch (error) { 
+        throw error;
+      }
+    }
+  
 }
 
 const authService = new AuthService();

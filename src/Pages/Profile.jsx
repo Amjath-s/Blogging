@@ -6,12 +6,10 @@ import { Outlet } from 'react-router-dom'
 function Profile() {
   return (
     <>
-      <div className='flex flex-row bg-orange-400 w-full h-fit'>
+      <div className='flex flex-row  h-fit' >
         <ProfilesideMenu />
-        <div className='flex flex-1  p-10 '>
-
+        <div className='flex flex-1    w-full bg-blue-200'>
           <Outlet/>
-
         </div>
       
       </div>

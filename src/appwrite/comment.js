@@ -35,6 +35,7 @@ export class CommentService {
         USERNAME: userName,
       }
     );
+    
   }
 
   async fetchComment({ postId }) {
@@ -65,10 +66,13 @@ export class CommentService {
         config.appwriteComments,
         commentId
       );
+     
     } catch (error) {
       console.log(error);
     }
   }
+
+
 
     realTimeComment({ postId, setComment }) {
         console.log("working of realtime");

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Button, Logo, LogoutBtn, Search } from "../index";
 
@@ -7,6 +7,8 @@ function Header() {
   const authStatus = useSelector((state) => state.auth.status);
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const location= useLocation()
 
   const navItems = [
     // { name: "Home", slug: "/", active: true },
@@ -133,11 +135,18 @@ function Header() {
         </div>
         </div>
 
-        <div className=" flex flex-row w-full  justify-end ">
+        <div className= {`flex flex-row w-full  justify-end  `}>
           {navItems.map(
             (item) =>
               item.active && (
-                <button key={item.slug} className="px-2 py-2 " onClick={()=>{handleNavigate(item.slug)}}>
+                <button key={item.slug} className={`px-3 py-2 rounded-md ${location.pathname === item.slug
+                    ? " text-blue-400 font-bold "
+                    : "text-gray-700 hover:bg-gray-200"
+                  }`
+                
+                
+                }
+            onClick={() => { handleNavigate(item.slug) }}>
                   {item.name}
                 </button>
               )
