@@ -24,98 +24,7 @@ function Header() {
     setMenuOpen(false); // Collapse menu on navigation (mobile)
   };
 
-  // return (
-  //   <header className="fixed top-0 left-0 w-full border-b border-gray-200 bg-white">
-  //     <div className="max-w-5xl mx-auto flex items-center justify-between p-3">
-  //       <Link to="/">
-  //         <Logo width="80px" />
-  //       </Link>
-  //       {authStatus && (
-  //         <div className="hidden md:block">
-  //           <Search />
-  //         </div>
-  //       )}
-  //       {/* Hamburger */}
-  //       <button
-  //         className="md:hidden flex flex-col justify-center items-center w-8 h-8"
-  //         onClick={() => setMenuOpen((v) => !v)}
-  //         aria-label={menuOpen ? "Close menu" : "Open menu"}
-  //       >
-  //         <span
-  //           className={`block w-6 h-0.5 bg-gray-700 mb-1 transition-transform duration-200 ${
-  //             menuOpen ? "rotate-45 translate-y-2" : ""
-  //           }`}
-  //         />
-  //         <span
-  //           className={`block w-6 h-0.5 bg-gray-700 mb-1 transition-opacity duration-200 ${
-  //             menuOpen ? "opacity-0" : "opacity-100"
-  //           }`}
-  //         />
-  //         <span
-  //           className={`block w-6 h-0.5 bg-gray-700 transition-transform duration-200 ${
-  //             menuOpen ? "-rotate-45 -translate-y-2" : ""
-  //           }`}
-  //         />
-  //       </button>
-
-  //       {/* Main nav (Desktop) */}
-  //       <nav className="hidden md:flex items-center space-x-6">
-  //         {navItems.map(
-  //           (item) =>
-  //             item.active && (
-  //               <button
-  //                 key={item.name}
-  //                 onClick={() => handleNavigate(item.slug)}
-  //                 className="px-3 py-1 rounded hover:bg-gray-100 text-gray-700"
-  //               >
-  //                 {item.name}
-  //               </button>
-  //             )
-  //         )}
-  //         {authStatus && <LogoutBtn />}
-  //       </nav>
-  //     </div>
-
-  //     {/* Mobile nav (slide down) */}
-  //     {menuOpen && (
-  //       <nav className="md:hidden absolute top-full left-0 w-full bg-white border-b border-gray-200 shadow animate-fade-down">
-  //         <ul className="flex flex-col items-center">
-  //           {navItems.map(
-  //             (item) =>
-  //               item.active && (
-  //                 <li key={item.name} className="w-full border-b last:border-0">
-  //                   <button
-  //                     className="block w-full px-4 py-3 text-gray-700 text-lg hover:bg-gray-100 text-left"
-  //                     onClick={() => handleNavigate(item.slug)}
-  //                   >
-  //                     {item.name}
-  //                   </button>
-  //                 </li>
-  //               )
-  //           )}
-  //           {authStatus && (
-  //             <li className="w-full">
-  //               <LogoutBtn />
-  //             </li>
-  //           )}
-  //         </ul>
-  //       </nav>
-  //     )}
-
-  //     {/* Optional: Simple fade animation for mobile menu */}
-  //     <style>
-  //       {`
-  //         @keyframes fadeDown {
-  //           from { opacity: 0; transform: translateY(-10px);}
-  //           to { opacity: 1; transform: translateY(0);}
-  //         }
-  //         .animate-fade-down {
-  //           animation: fadeDown 0.2s ease;
-  //         }
-  //       `}
-  //     </style>
-  //   </header>
-  // );
+ 
 
   return (
     <>
@@ -123,6 +32,7 @@ function Header() {
         <div className="flex flex-row w-full  item-center  relative">
           <div className="absolute flex-row flex justify-between">
             
+
             <div className="">
               <Link to ="/">
               

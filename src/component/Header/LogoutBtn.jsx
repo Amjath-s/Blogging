@@ -29,7 +29,8 @@ function LogoutBtn() {
       <span className="flex items-center justify-center w-full">
 
       <svg
-        className="w-8 h-8 mr-0 md:mr-2 flex-shrik-0"
+          className=" mr-0 md:mr-2 flex  w-10 h-10 "
+          
         
         stroke="currentColor"
         viewBox="0 0 24 24"
@@ -42,7 +43,7 @@ function LogoutBtn() {
           className="w-6 h-6 flex-shrink-0"
           />
       </svg>
-      <span className=" hidden sm:block"> Logoutm </span>
+      <span className=" hidden sm:block"> Logout </span>
           </span>
     </button>
   );

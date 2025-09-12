@@ -56,16 +56,7 @@ function Likes({ postId, userId }) {
 
     }, [userlikedornot,isclick])
     
-    useEffect(() =>
-    {  console.log("islike data", islike);  
-        console.log("the like ", userlikedornot)
-        // if (userlikedornot)
-        // {
-        //     setLikedHeart(true)
-        // }
-        console.log("heart",likedheart)
-       
-},[islike,isclick])
+   
 
 
     const handleLikes = async () =>
@@ -93,9 +84,6 @@ function Likes({ postId, userId }) {
          setIsClicked((prev) => !prev);
 
     }
-
-
-
     return (
       <div>
         {/* {likedheart ? "&#10084": "k"} */}
