@@ -1,6 +1,8 @@
 import React from 'react'
+import { useNavigate,Link } from 'react-router-dom';
 
 function Landingpage() {
+  const navigate=useNavigate()
   return (
     <div className="bg-white- text-dark  h-screen flex items-center justify-center p-8">
       <div className="container mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-12 max-w-7xl">
@@ -9,7 +11,7 @@ function Landingpage() {
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-dark leading-tight">
             Welcome to{" "}
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-              NexBlog
+              NexaBlog
             </span>
           </h1>
           <p className="max-w-xl text-lg sm:text-xl text-dark font-light">
@@ -18,10 +20,12 @@ function Landingpage() {
             your reading journey today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <button className="px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-full font-semibold text-lg shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out">
+ 
+            <button onClick={()=>navigate("/login")} className="px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-full font-semibold text-lg shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out">
               Read Now
             </button>
-            <button className="px-8 py-3 bg-gray-800 text-gray-200 border border-gray-700 hover:bg-gray-700 rounded-full font-semibold text-lg shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out">
+           
+            <button onClick={()=>navigate("/signup")} className="px-8 py-3 bg-gray-800 text-gray-200 border border-gray-700 hover:bg-gray-700 rounded-full font-semibold text-lg shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out">
               Sign Up
             </button>
           </div>
