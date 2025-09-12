@@ -11,14 +11,7 @@ function Profile() {
         <div className='flex flex-1    w-full bg-blue-200'>
           <Outlet/>
         </div>
-      
       </div>
-    
-   
-
-    
-        
-          {/* <ProfileForm/> */}
     </>
       
 

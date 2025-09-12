@@ -8,7 +8,7 @@ function Tagpost() {
   const [loading,setLoading]=useState(true)
 
     const { tag} = useParams()
-  console.log("tagid", tag)
+  
   
   useEffect(()  =>
   {
@@ -41,7 +41,7 @@ function Tagpost() {
       </div>
       {loading && (
         <div className="bg-green-200 justify-center items-center flex flex-col ">
-          laoding
+          loading
         </div>
       )}
 
