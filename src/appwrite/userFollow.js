@@ -94,6 +94,54 @@ export class userFollow {
       throw error;
     }
   }
+
+  async getUserFollowingCount({ userId }) {
+    try {
+      const following = await this.database.listDocuments(
+        config.appwriteDatabaseId,
+        config.appwriteUserFollow,
+        [Query.equal("USERFOLLOWER",
+          userId)]
+      );
+      if (!following.documents || following.documents.length === 0)   
+      {
+        return 0
+        
+      }
+      else {
+        return following.total
+      }
+    }
+    catch (error)
+    {
+      throw error
+    }
+    
+  }
+  async getUserFollowerCount({userId})
+  {
+    try {
+      const followers = await this.database.listDocuments(
+        config.appwriteDatabaseId,
+        config.appwriteUserFollow,
+        [Query.equal("USERFOLLOWEE",
+          userId)]
+        
+      )
+      if (!followers.documents || followers.documents.length === 0)
+      {
+        return 0
+      }
+      return followers.total
+    }
+    catch (error)
+    {
+      console.log("error in the folowercount ",error)
+    }
+  }
+    
+
+  
 }
 
 const userfollowservice= new userFollow()
