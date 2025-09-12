@@ -12,11 +12,11 @@ function ProfileForm() {
   const [documentId, setDocumentId] = useState(null);
   const [authorValue, setAuthorValue] = useState(null);
   const [disable, setDisable] = useState(true);
-  const [followers, setFollowers] = useState(254);
-  const [following, setFollowing] = useState(189);
   const [userinfo, setUserInfo] = useState()
   const [tagline, setTagLine] = useState()
-  const [followingcount,setFollowingCount]=useState()
+  const [followingcount, setFollowingCount] = useState()
+  const [loading, setLoading] = useState(true)
+  const [followercount,SetFollowerCount]=useState()
 
   useEffect(() => {
     authService.getCurrentUser().then((userData) => {
@@ -48,6 +48,7 @@ function ProfileForm() {
           });
           setDisable(true);
           setTagLine(data.documents[0].TAGLINE)
+          setLoading(false)
         } else {
           setAuthorValue(null);
           reset({
@@ -76,14 +77,22 @@ function ProfileForm() {
   {
     if (!userId) return
 
-    appwriteUserfollow.getUserFollowingCount({ userId }).then(res =>
+    appwriteUserfollow.getUserFollowingCount ( { userId }).then(res =>
     {
 
       setFollowingCount(res)
     }
     
+    
   )
-  console.log(authorValue)
+  appwriteUserfollow.getUserFollowerCount({ userId }).then(res =>
+  {
+    SetFollowerCount(res);
+
+  }
+  )
+     
+
 
 
   })
@@ -119,232 +128,22 @@ function ProfileForm() {
 
   const imageFile = watch("image");
 
-  // return (
-  //   <div className="min-h-screen flex bg-gray-50">
-  //     <div className="flex-1 flex flex-col items-center py-12 px-4 sm:px-8 lg:px-12">
-  //       <div className="w-full max-w-4xl bg-white shadow-sm rounded-2xl border border-gray-200">
-  //         {/* Profile Header */}
-  //         <div className="flex items-center justify-between px-8 py-6 border-b border-gray-200">
-  //           <div className="flex items-center gap-6">
-  //             <div className="relative">
-  //               <div className="h-20 w-20 rounded-full border border-gray-300 overflow-hidden bg-gray-100">
-  //                 {imageFile && imageFile.length > 0 ? (
-  //                   <img
-  //                     src={URL.createObjectURL(imageFile[0])}
-  //                     alt="Avatar Preview"
-  //                     className="h-full w-full object-cover"
-  //                   />
-  //                 ) : authorValue?.avatar ? (
-  //                   <img
-  //                     src={appwriteService.getFileUrl(authorValue.avatar)}
-  //                     alt="Avatar"
-  //                     className="h-full w-full object-cover"
-  //                   />
-  //                 ) : (
-  //                   <span className="text-gray-400 text-5xl flex items-center justify-center h-full">
-  //                     👤
-  //                   </span>
-  //                 )}
-  //               </div>
-  //               <Input
-  //                 disabled={disable}
-  //                 type="file"
-  //                 accept="image/png, image/jpg, image/jpeg, image/gif"
-  //                 className="absolute -bottom-2 -right-2 text-white p-1.5 rounded-full cursor-pointer shadow bg-indigo-600 hover:bg-indigo-700 transition border-2 border-white"
-  //                 style={{ width: "40px", height: "40px", opacity: 1 }}
-  //                 {...register("image")}
-  //                 title="Change Avatar"
-  //               />
-  //             </div>
-  //             <div>
-  //               <h2 className="text-xl font-semibold text-gray-900">
-  //                 {authorValue?.AUTHORNAME || "Your Name"}
-  //               </h2>
-  //               <p className="text-sm text-gray-500">
-  //                 {authorValue?.TAGLINE || "Your tagline"}
-  //               </p>
-  //             </div>
-  //           </div>
-  //           <div className="flex items-center gap-8">
-  //             <div className="text-center">
-  //               <p className="text-lg font-semibold text-gray-900">
-  //                 {followers}
-  //               </p>
-  //               <p className="text-sm text-gray-500">Followers</p>
-  //             </div>
-  //             <div className="text-center">
-  //               <p className="text-lg font-semibold text-gray-900">
-  //                 {following}
-  //               </p>
-  //               <p className="text-sm text-gray-500">Following</p>
-  //             </div>
-  //           </div>
-  //         </div>
 
-  //         {/* Form */}
-  //         <form
-  //           onSubmit={handleSubmit(submitInfo)}
-  //           className="px-8 py-8 space-y-6"
-  //         >
-  //           {/* Basic Info */}
-  //           <div>
-  //             <label className="block text-sm font-medium text-gray-700 mb-1">
-  //               Full Name *
-  //             </label>
-  //             <Input
-  //               disabled={disable}
-  //               type="text"
-  //               placeholder="Enter your full name"
-  //               className="w-full border-gray-300 rounded-lg px-4 py-2 text-base"
-  //               {...register("name", { required: true })}
-  //             />
-  //           </div>
-
-  //           <div>
-  //             <label className="block text-sm font-medium text-gray-700 mb-1">
-  //               Username *
-  //             </label>
-  //             <Input
-  //               disabled={disable}
-  //               type="text"
-  //               placeholder="@username"
-  //               className="w-full border-gray-300 rounded-lg px-4 py-2 text-base"
-  //               {...register("username", { required: true })}
-  //             />
-  //           </div>
-
-  //           <div>
-  //             <label className="block text-sm font-medium text-gray-700 mb-1">
-  //               Tagline
-  //             </label>
-  //             <Input
-  //               disabled={disable}
-  //               type="text"
-  //               placeholder="e.g. Tech Enthusiast | Writer"
-  //               className="w-full border-gray-300 rounded-lg px-4 py-2 text-base"
-  //               {...register("tagline")}
-  //             />
-  //           </div>
-
-  //           <div>
-  //             <label className="block text-sm font-medium text-gray-700 mb-1">
-  //               Profession
-  //             </label>
-  //             <Input
-  //               disabled={disable}
-  //               type="text"
-  //               placeholder="e.g. Software Engineer, Blogger"
-  //               className="w-full border-gray-300 rounded-lg px-4 py-2 text-base"
-  //               {...register("profession")}
-  //             />
-  //           </div>
-
-  //           {/* Bio */}
-  //           <div>
-  //             <label className="block text-sm font-medium text-gray-700 mb-1">
-  //               About *
-  //             </label>
-  //             <textarea
-  //               disabled={disable}
-  //               rows={4}
-  //               placeholder="Tell something about yourself"
-  //               className="w-full border-gray-300 px-4 py-2 rounded-lg text-base resize-none"
-  //               {...register("about", { required: true })}
-  //             />
-  //           </div>
-
-  //           {/* Links */}
-  //           <div>
-  //             <label className="block text-sm font-medium text-gray-700 mb-1">
-  //               Website
-  //             </label>
-  //             <Input
-  //               disabled={disable}
-  //               type="url"
-  //               placeholder="https://yourwebsite.com"
-  //               className="w-full border-gray-300 rounded-lg px-4 py-2 text-base"
-  //               {...register("website")}
-  //             />
-  //           </div>
-
-  //           <div className="grid grid-cols-2 gap-6">
-  //             <div>
-  //               <label className="block text-sm font-medium text-gray-700 mb-1">
-  //                 Twitter
-  //               </label>
-  //               <Input
-  //                 disabled={disable}
-  //                 type="url"
-  //                 placeholder="https://twitter.com/yourhandle"
-  //                 className="w-full border-gray-300 rounded-lg px-4 py-2 text-base"
-  //                 {...register("twitter")}
-  //               />
-  //             </div>
-  //             <div>
-  //               <label className="block text-sm font-medium text-gray-700 mb-1">
-  //                 LinkedIn
-  //               </label>
-  //               <Input
-  //                 disabled={disable}
-  //                 type="url"
-  //                 placeholder="https://linkedin.com/in/yourprofile"
-  //                 className="w-full border-gray-300 rounded-lg px-4 py-2 text-base"
-  //                 {...register("linkedin")}
-  //               />
-  //             </div>
-  //           </div>
-
-  //           <div>
-  //             <label className="block text-sm font-medium text-gray-700 mb-1">
-  //               Location
-  //             </label>
-  //             <Input
-  //               disabled={disable}
-  //               type="text"
-  //               placeholder="City, Country"
-  //               className="w-full border-gray-300 rounded-lg px-4 py-2 text-base"
-  //               {...register("location")}
-  //             />
-  //           </div>
-
-  //           <div>
-  //             <label className="block text-sm font-medium text-gray-700 mb-1">
-  //               Public Email
-  //             </label>
-  //             <Input
-  //               disabled={disable}
-  //               type="email"
-  //               placeholder="example@email.com"
-  //               className="w-full border-gray-300 rounded-lg px-4 py-2 text-base"
-  //               {...register("email")}
-  //             />
-  //           </div>
-
-  //           {/* Actions */}
-  //           <div className="pt-4 flex justify-end">
-  //             {!disable ? (
-  //               <Button
-  //                 type="submit"
-  //                 className="px-6 py-2 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700"
-  //               >
-  //                 Save Profile
-  //               </Button>
-  //             ) : (
-  //               <button
-  //                 type="button"
-  //                 className="px-6 py-2 rounded-lg bg-gray-100 text-gray-700 font-medium hover:bg-gray-200"
-  //                 onClick={() => setDisable(false)}
-  //               >
-  //                 Edit Profile
-  //               </button>
-  //             )}
-  //           </div>
-  //         </form>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
-      
+  if (loading)
+  {
+    return (
+      <>
+        <div className="flex justify-center items-center h-screen w-full">
+          <div
+            className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent text-blue-600"
+            role="status"
+          >
+            <span className="sr-only">Loading....</span>
+          </div>
+        </div>
+      </>
+    );
+        }
   return (
     <>
       <div className="flex flex-col bg-orange-300 m-4 sm:m-10 h-fit gap-10 w-full p-4 sm:p-6">
@@ -358,7 +157,8 @@ function ProfileForm() {
                 alt="Avatar Preview"
                 className="h-full w-full object-cover"
               />
-            ) : authorValue?.AVATAR ? (
+            ) :
+              authorValue?.AVATAR ? (
               <img
                 src={appwriteService.getFileUrl(authorValue.AVATAR)}
                 alt="Avatar"
@@ -390,7 +190,7 @@ function ProfileForm() {
                   Followers
                 </h2>
                 <span className="text-xl sm:text-2xl font-bold text-gray-900 mt-1">
-                  0
+                  {followercount}
                 </span>
               </div>
 
@@ -406,7 +206,35 @@ function ProfileForm() {
               </div>
             </div>
 
-            <h3 className="text-center lg:text-left">links</h3>
+            {/* <h3 className="texxt-center lg:text-left">links</h3> */}
+            <div className="flex flex-wrap gap-4 text-sm mt-4">
+              {authorValue?.EMAIL && (
+                <a
+                  href={`mailto:${authorValue.EMAIL}`}
+                  className="text-blue-600 hover:underline"
+                >
+                  📧 {authorValue.EMAIL}
+                </a>
+              )}
+              {authorValue?.PROFILEURL && (
+                <a
+                  href={authorValue.PROFILEURL}
+                  target="_blank"
+                  className="text-blue-600 hover:underline"
+                >
+                  🌐 Profile
+                </a>
+              )}
+              {authorValue?.TWITTERURL && (
+                <a
+                  href={authorValue.TWITTERURL}
+                  target="_blank"
+                  className="text-blue-600 hover:underline"
+                >
+                  🐦 Twitter
+                </a>
+              )}
+            </div>
           </div>
         </div>
 
@@ -445,7 +273,7 @@ function ProfileForm() {
                   type="text"
                   id="email"
                   placeholder="Enter your email"
-                  disabled="True"
+                  disabled={true}
                   {...register("email")}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
                          focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -464,6 +292,7 @@ function ProfileForm() {
                   type="text"
                   id="tag_line"
                   placeholder="Enter your tag line"
+                  disabled={disable}
                   {...register("tagline")}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
                          focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -482,6 +311,7 @@ function ProfileForm() {
                   type="text"
                   id="about"
                   placeholder="About"
+                  disabled={disable}
                   {...register("about")}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
                          focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -499,6 +329,7 @@ function ProfileForm() {
                 <input
                   type="text"
                   id="profession"
+                  disabled={disable}
                   placeholder="Enter your profession"
                   {...register("profession")}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
@@ -517,6 +348,7 @@ function ProfileForm() {
                 <input
                   type="text"
                   id="interest"
+                  disabled={disable}
                   placeholder="Enter your field of interest"
                   {...register("interest")}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
@@ -536,6 +368,7 @@ function ProfileForm() {
                   type="url"
                   id="websiteurl"
                   placeholder="flowbite.com"
+                  disabled={disable}
                   {...register("profileurl")}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
                          focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -553,10 +386,14 @@ function ProfileForm() {
                 <input
                   type="url"
                   id="twitterurl"
+                  disabled={disable}
                   placeholder="Twitter url"
                   {...register("twitterurl")}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  className={
+                    disable
+                      ? " bg-gray-100 border border-gray-300 text-gray-700 text-sm rounded-lg p-2.5 w-full"
+                      : "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  }
                 />
               </div>
             </div>
@@ -572,6 +409,7 @@ function ProfileForm() {
               <input
                 type="file"
                 id="file"
+                disabled={disable}
                 accept="image/png, image/jpg, image/jpeg"
                 placeholder="Upload Avatar"
                 {...register("image")}
