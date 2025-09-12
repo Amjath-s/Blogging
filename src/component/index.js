@@ -1,5 +1,5 @@
 import Header from "./Header/Header";
-import Footer from "./footer/footer";
+import Footer from "./footer/Footer";
 import Container from "./container/Container";
 import LogoutBtn from "./Header/LogoutBtn";
 import Logo from "./Logo";
