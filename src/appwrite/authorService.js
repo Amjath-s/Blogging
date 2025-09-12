@@ -36,25 +36,7 @@ export class AuthorService {
       throw error; // Re-throw the error so it can be handled in the component
     }
   }
-  // async getAuthroInfo(userId)
-  // {
-  //     try {
-          
-      
-  //         return await this.databases.getDocument(
-  //             config.appwriteDatabaseId,
-  //             config.appwriteAuthorCollectionId,
-  //             userId
-          
-  //         )
-  //     }
-  //     catch (error)
-  //     {
-  //         throw error
-  //         console.log(error)
-  //     }
   
-  // }
 
   async getAuthorInfo({USERID: userId })
   {

@@ -396,13 +396,15 @@ function Post() {
                     src={appwriteService.getFileUrl(fileId)}
                     className="w-[40px] h-[40px] rounded-full border-2"
                   />
-                  <p> {authorinfo.AUTHOR}</p>
+                  {/* <p> {authorinfo.AUTHOR}</p> */}
                 </>
               ) : (
                 <div className="bg-blue rounded-full"> </div>
               )}
-
+              <Link to= {`/author/${post.UserId}`}>
+              
               <p className="px-5"> {post.Author} </p>
+              </Link>
 
               <FollowBtn
                 FollowerId={userData.$id}
