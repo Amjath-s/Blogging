@@ -64,12 +64,3 @@ function FollowBtn({ FolloweeId, FollowerId, children }) {
 }
 
 export default FollowBtn;
-
-// function FollowBtn()
-// {
-//   return(
-//     <div>
-
-//     </div>
-//   )
-// }
