@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Button, Logo, LogoutBtn, Search } from "../index";
+import { Button, Logo, LogoutBtn, Search, } from "../index";
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status);
   const navigate = useNavigate();
-  const [menuOpen, setMenuOpen] = useState(false);
-
   const location= useLocation()
-
   const navItems = [
     // { name: "Home", slug: "/", active: true },
     { name: "Login", slug: "/login", active: !authStatus },
@@ -18,29 +15,30 @@ function Header() {
     { name: "write", slug: "/add-post", active: authStatus },
     { name: "Profile", slug: "/profile", active: authStatus },
   ];
-
+  const Component = [
+    { component: <Search />,active:authStatus }
+  ]
   const handleNavigate = (slug) => {
     navigate(slug);
-    setMenuOpen(false); // Collapse menu on navigation (mobile)
+     // Collapse menu on navigation (mobile)
   };
-
- 
-
   return (
     <>
       <header className=" fixed left-0  bg-white w-full px-5 py-2  flex  flex-row  border-b-2 z-50 ">
         <div className="flex flex-row w-full  item-center  relative">
           <div className="absolute flex-row flex justify-between">
-            
-
             <div className="">
-              <Link to ="/">
-              
+              <Link to ="/">    
           <Logo />
               </Link>
         </div>
-        <div className="hidden md:block">
-          <Search/>
+            <div className="hidden md:block">
+            {Component.map((search) =>
+              (
+                search.active &&(search.component)
+              
+              ))}
+          {/* <Search/> */}
        </div>
         </div>
         </div>
