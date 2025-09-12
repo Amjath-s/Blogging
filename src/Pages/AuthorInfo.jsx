@@ -25,10 +25,7 @@ function AuthorInfo() {
 
     }, [])
   
-  useEffect(() =>
-  {
-    console.log("authrorinfo",authinfo)
-  })
+
 return (
   <main className="max-w-6xl mx-auto my-16 p-8 bg-gray-50 rounded-xl shadow-lg">
     <h1 className="text-3xl font-extrabold mb-10 text-gray-900 text-center">

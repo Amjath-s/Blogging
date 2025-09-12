@@ -1,11 +1,13 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import { useForm } from "react-hook-form";
 import { Button, Input, Select, RTE } from "../index";
 import appwriteService from "../../appwrite/store";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 function PostForm({ post }) {
+  const[isPosting,setIsPosting]=useState(false)
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
 
@@ -19,7 +21,7 @@ function PostForm({ post }) {
         author:post?.Author||"",
         title: post?.Title || "",
         content: post?.Content || "",
-        slug: post?.Slug || "",
+        // slug: post?.Slug || "",
         status: post?.Status || "active",
         tag:post?.Tag||"select a tag"
       },
@@ -31,6 +33,8 @@ function PostForm({ post }) {
   }, [userData]);
 
   const submit = async (data) => {
+    try {
+      
     if (post) {
       const file = data.image[0]
         ? await appwriteService.uplaodFile(data.image[0])
@@ -55,102 +59,105 @@ function PostForm({ post }) {
           ...data,
           featuredImage: fileId,
           userId: userData.$id,
-          like:0,
+          like: 0,
         });
         if (dbpost) {
           navigate(`/post/${dbpost.$id}`);
+          console.log("the psot ofdb", dbpost)
         }
       }
     }
-  };
-
-  const slugTransform = useCallback((value) => {
-    if (value && typeof value === "string") {
-      return value
-        .trim()
-        .toLowerCase().slice(0,36)
-        .replace(/[^a-z0-9\s-]/g, "") // Remove special characters except spaces and hyphens
-        .replace(/\s+/g, "-") // Replace spaces with hyphens
-        .replace(/-+/g, "-") // Replace multiple hyphens with single hyphen
-        .replace(/^-|-$/g, ""); // Remove leading/trailing hyphens
     }
-    return "";
-  }, []);
+    catch (error)
+    {
+      throw error
+    }
+    finally
+    {
+      setIsPosting(false)
 
-  useEffect(() => {
-    const subscription = watch((value, { name }) => {
-      if (name === "title") {
-        const slug = slugTransform(value.title);
-        setValue("slug", slug, { shouldValidate: true });
-      }
-    });
+    }
+    
 
-    return () => {
-      subscription.unsubscribe(); // Clean up the subscription
-    };
-  }, [watch, slugTransform, setValue] );
+};
+
+  // const slugTransform = useCallback((value) => {
+  //   if (value && typeof value === "string") {
+  //     return value
+  //       .trim()
+  //       .toLowerCase().slice(0,36)
+  //       .replace(/[^a-z0-9\s-]/g, "") // Remove special characters except spaces and hyphens
+  //       .replace(/\s+/g, "-") // Replace spaces with hyphens
+  //       .replace(/-+/g, "-") // Replace multiple hyphens with single hyphen
+  //       .replace(/^-|-$/g, ""); // Remove leading/trailing hyphens
+  //   }
+  //   return "";
+  // }, []);
+
+  // useEffect(() => {
+  //   const subscription = watch((value, { name }) => {
+  //     if (name === "title") {
+  //       const slug = slugTransform(value.title);
+  //       setValue("slug", slug, { shouldValidate: true });
+  //     }
+  //   });
+
+  //   return () => {
+  //     subscription.unsubscribe(); // Clean up the subscription
+  //   };
+  // }, [watch, slugTransform, setValue] );
 
   return (
-    <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
-      <div className="w-2/3 px-2">
+    <>
+      <div>
+        jlk
+      </div>
+        
+  
+    <form onSubmit={handleSubmit(submit)} className="flex flex-wrap md:flex-row flex-col">
+      
+      <div className="w-full px-2  md:w-2/3">
         <Input
           label="Author"
           disabled
           {...register("author", { required: true })}
-        />
+          />
         <Input
           label="Title :"
           placeholder="Title"
           className="mb-4"
           {...register("title", { required: true })}
-        />
-        <Input
-          label="Slug :"
-          placeholder="Slug"
-          className="mb-4"
-          {...register("slug", { required: true })}
-          onInput={(e) => {
-            setValue("slug", slugTransform(e.currentTarget.value), {
-              shouldValidate: true,
-            });
-          }}
-        />
+          />
 
         <Input
           label="caption"
           placeholder="breif about the content of post"
           className="mb-4"
-          {...register("caption",{required:true})}
-        
-        />
-        {/* <RTE
-          label="Content :"
-          name="content"
-          control={control}
-          defaultValue={getValues("content")}
-        /> */}
+          {...register("caption", { required: true })}
+          />
+
         <RTE
           label="Content :"
           name="content"
           control={control}
           defaultValue={getValues("content")}
-        />
+          />
       </div>
-      <div className="w-1/3 px-2">
+      <div className=" w-full md:w-1/3 px-2">
         <Input
           label="Featured Image :"
           type="file"
           className="mb-4"
           accept="image/png, image/jpg, image/jpeg, image/gif"
           {...register("image", { required: !post })}
-        />
+          />
         {post && (
           <div className="w-full mb-4">
             <img
               src={appwriteService.getFileUrl(post.FeaturedImage)}
               alt={post.title}
               className="rounded-lg"
-            />
+              />
           </div>
         )}
         <Select
@@ -158,27 +165,57 @@ function PostForm({ post }) {
           label="Status"
           className="mb-4"
           {...register("status", { required: true })}
-        />
+          />
 
         <Select
-          options={['Ai', 'Technology', 'psychology', 'Health', 'Fitness', 'Food', 'Travel', 'Lifestyle', 'Education', 'Finance', 'Business', 'Entertainment', 'Fashion', 'Sports', 'Gaming', 'Art', 'Photography', 'Music', 'Books', 'Movies', 'Environment'
+          options={[
+            "Ai",
+            "Technology",
+            "psychology",
+            "Health",
+            "Fitness",
+            "Food",
+            "Travel",
+            "Lifestyle",
+            "Education",
+            "Finance",
+            "Business",
+            "Entertainment",
+            "Fashion",
+            "Sports",
+            "Gaming",
+            "Art",
+            "Photography",
+            "Music",
+            "Books",
+            "Movies",
+            "Environment",
           ]}
           label="Tag"
           className="mb-4"
-          {...register("tag",{required:true})}
-        
-        
-        />
+          {...register("tag", { required: true })}
+          />
+      
         <Button
-          onClick={() => console.log("post form button")}
           type="submit"
-          bgColor={post ? "bg-green-500" : undefined}
-          className="w-full"
-        >
-          {post ? "Update" : "Submit"}
+          disabled={isPosting}
+          bgColor={post ? "bg-green-500" : "bg-blue-500"}
+          className={`w-[100%] ${
+            isPosting ? "opacity-70 cursor-not-allowed" : ""
+          }`}
+          >
+          {isPosting
+            ? post``
+            ? "Updating..."
+            : "Posting..."
+            : post
+            ? "Update"
+            : "Submit"}
         </Button>
+           
       </div>
     </form>
+            </>
   );
 }
 
