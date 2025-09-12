@@ -18,6 +18,8 @@ import AuthorInfo from "./Pages/AuthorInfo.jsx";
 import Tagpost from "./Pages/Tagpost.jsx";
 import ProfileForm from "./component/ProfileForm.jsx";
 import UserPost from "./Pages/UserPost.jsx";
+import Landingpage from "./Pages/Landingpage.jsx";
+
 
 const router = createBrowserRouter([
   {
@@ -26,8 +28,9 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <Home/>,
       },
+      
       {
         path: "/login",
         element: (
@@ -84,7 +87,8 @@ const router = createBrowserRouter([
           {
             path: "/profile/posts",
             element: <UserPost />,
-          }
+          },
+        
           
         ]
 

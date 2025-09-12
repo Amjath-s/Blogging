@@ -73,7 +73,7 @@ export class AuthService {
         // This will redirect the user to Google for authentication
         return await this.account.createOAuth2Session(
           "google",
-          "http://localhost:5173/profile", // Success redirect URL
+          "http://localhost:5173/", // Success redirect URL
           "http://localhost:5173/" // Failure redirect URL
         )
   

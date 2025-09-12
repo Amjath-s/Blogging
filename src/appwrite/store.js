@@ -56,7 +56,7 @@ export class StoreService {
       return await this.database.updateDocument(
         config.appwriteDatabaseId,
         config.appwriteCollectionId,
-        slug, // Use slug as the document ID
+        slug, 
         {
           Title: title,
           Content: content,
@@ -144,8 +144,25 @@ export class StoreService {
       console.log("error in fetch user post", error);
     }
   }
+  
+  async getTagPosts({ tag })
+  {
+    try {
+      return await this.database.listDocuments(
+        config.appwriteDatabaseId,
+        config.appwriteCollectionId,
+        [
+          Query.equal("Tag",tag)
+        ]
 
-
+      )
+      
+    }
+    catch (error)
+    {
+      throw error
+    }
+  }
 
   
 

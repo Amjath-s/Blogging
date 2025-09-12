@@ -6,6 +6,7 @@ import { login } from "./store/authSlice";
 import { Header, Footer } from "./component/index.js";
 import { Outlet } from "react-router-dom";
 import { logout } from "./store/authSlice";
+import appwriteauth from "./appwrite/authorService.js"
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -18,7 +19,13 @@ function App() {
       .then((userData) => {
         console.log("userData", userData);
         if (userData) {
-          dispatch(login(userData));
+          dispatch(login(userData),
+          appwriteauth.ensureAuthor({ user: userData })
+          
+          
+          
+          
+          );
         } else {
           console.log("No user data found, dispatching logout");
           dispatch(logout());
@@ -32,9 +39,13 @@ function App() {
   // Show loading spinner while checking authentication
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-400">
-        <div className="text-xl">Loading..iuojfsldkfdfjsjlflsjflsjflsdjffsjfsjfjflskjdfjsdlfjadslfjadslfjadsljflsdjflksdjflsjflsjfljsdlfjsdlkfjlsdjflsdjflsjflsjflsjfjfl
-          fsfljfsdlfjfs;fklkfsf;skdf;skflksf;sf;skf;kf;skf;ksd;fksd;fksd;fk;sldkf;lsdk.</div>
+      <div className="flex justify-center items-center h-screen w-full">
+        <div
+          className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent text-blue-600"
+          role="status"
+        >
+          <span className="sr-only">Loading....</span>
+        </div>
       </div>
     );
   }
