@@ -4,6 +4,8 @@ import appwriteService from "../appwrite/store";
 import { Container, Button, Logo, PostCard } from "../component";
 import AllPost from "./AllPost";
 import SideSection from "../component/SideSection";
+import Landingpage from "./Landingpage";
+import Authlayout from "../component/AuthLayout"
 
 // function Home() {
 //   const [posts, setPosts] = React.useState([]);
@@ -236,21 +238,18 @@ function Home() {
   
 
 
-  useEffect(() => {
-    console.log();
-  });
+
 
 
   if (posts.length === 0) {
     return (
       <>
-        <div className="bg-blue-800 min-h-screen">
-          <div className="flex flex-row max-w-d">
-            <div className="font-extrabold bg-red-500 w-full ">
-              <div>Welcome To Z-BLOG</div>
-            </div>
-          </div>
-        </div>
+    
+
+        <Landingpage/>
+    
+        
+        
       </>
     );
   }
@@ -260,15 +259,17 @@ function Home() {
       <div className="w-full min-h-screen flex ">
         <div className="flex justify-center bg-white  w-full ">
           <main className=" max-w-4xl mt-8">
-            <div className="space-y-8 ">
+            {/* <div className="space-y-8 ">
               {posts.map((post) => (
                 <div key={post.$id}>
                   <div>
                     <PostCard {...post} />
                   </div>
                 </div>
-              ))}
-            </div>
+              ))} */}
+              <PostCard Posts={posts} />
+{/*               
+            </div> */}
             {hasMore && (
               <div className="flex justify-center my-8">
                 <button
