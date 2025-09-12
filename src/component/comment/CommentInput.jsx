@@ -4,14 +4,13 @@ import CommentView from "./CommentView";
 import commentservice from "../../appwrite/comment";
 import { set } from "react-hook-form";
 
-// function CommentInput({ parentcommentId, postId, userdata, setComment, onCancel })
+
 function CommentInput({ parentcommentId, postId, userdata, onCancel }) {
   const MAXVALUE = 100;
   const [content, setContent] = useState(""); //this contain comment that to send
   const userId = userdata?.$id;
   const userName = userdata?.name;
-  // const userName=userdata.name
-
+  
   // For displaying comment count - optional
 
   const postComment = async (content) => {
