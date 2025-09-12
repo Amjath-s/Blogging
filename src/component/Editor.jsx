@@ -1,33 +1,4 @@
-// import React, { useRef } from "react";
-// import { createReactEditorJS } from "react-editor-js";
-// import Header from "@editorjs/header";
 
-// const ReactEditorJS = createReactEditorJS();
-
-// const tools = {
-//   header: Header,
-// };
-
-// const MyEditor = ({ onChange, defaultValue }) => {
-//   const editorCore = useRef(null);
-
-//   return (
-//     <ReactEditorJS
-//       tools={tools}
-//       defaultValue={defaultValue}
-//       onReady={() => {
-//         console.log("Editor is ready");
-//       }}
-//       onChange={async (api) => {
-//         const data = await api.saver.save();
-//         onChange(data); // This updates react-hook-form
-//       }}
-//       editorRef={(instance) => (editorCore.current = instance)}
-//     />
-//   );
-// };
-
-// export default MyEditor;
 import React, { useEffect, useRef } from "react";
 import EditorJS from "@editorjs/editorjs";
 import Header from "@editorjs/header";

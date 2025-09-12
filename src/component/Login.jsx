@@ -40,9 +40,9 @@ function Login() {
           {/* Header */}
           <div className="text-center mb-8">
             <div className="flex justify-center mb-6">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
-                <Logo width="60%" />
-              </div>
+                <Logo width="100%" />
+              {/* <div className="w-18 h-18 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
+              </div> */}
             </div>
             <h2 className="text-3xl font-bold text-gray-900 mb-2">
               Welcome Back
