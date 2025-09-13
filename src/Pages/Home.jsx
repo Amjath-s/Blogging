@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import appwriteService from "../appwrite/store";
 import { Container, Button, Logo, PostCard } from "../component";
-
+import AllPost from "./AllPost";
 import SideSection from "../component/SideSection";
 import Landingpage from "./Landingpage";
 import Authlayout from "../component/AuthLayout"
