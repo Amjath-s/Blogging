@@ -148,7 +148,7 @@ function ProfileForm() {
     <>
       <div className="flex flex-col bg-orange-300 m-4 sm:m-10 h-fit gap-10 w-full p-4 sm:p-6">
         {/* Top Section */}
-        <div className="w-full flex flex-col lg:flex-row items-center gap-6">
+        <div className="w-full flex flex-col xl:flex-row lg:flex=col items-center gap-6">
           {/* Avatar */}
           <div className="h-28 w-28 rounded-full border border-gray-300 overflow-hidden bg-gray-100">
             {imageFile && imageFile.length > 0 ? (
@@ -184,17 +184,17 @@ function ProfileForm() {
             </div>
 
             {/* Followers / Following */}
-            <div className="flex flex-row items-center gap-6 bg-white p-4 sm:p-6 rounded-xl shadow-sm border border-gray-200 w-full lg:w-1/3 justify-around">
+            <div className="flex flex-col md:flex-row items-center gap-6 bg-white p-4 sm:p-2 rounded-xl shadow-sm border border-gray-200 w-full md:w-2/3  lg:w-1/3 justify-around">
               <div className="flex flex-col items-center">
                 <h2 className="text-sm font-medium text-gray-500 uppercase tracking-wide">
                   Followers
                 </h2>
-                <span className="text-xl sm:text-2xl font-bold text-gray-900 mt-1">
+                <span className="text-xl  font-bold text-gray-900 mt-1 ">
                   {followercount}
                 </span>
               </div>
 
-              <div className="h-10 w-px bg-gray-300"></div>
+              {/* <div className="hidden w-px bg-gray-300 sm:h-10"></div> */}
 
               <div className="flex flex-col items-center">
                 <h2 className="text-sm font-medium text-gray-500 uppercase tracking-wide">
@@ -207,7 +207,7 @@ function ProfileForm() {
             </div>
 
             {/* <h3 className="texxt-center lg:text-left">links</h3> */}
-            <div className="flex flex-wrap gap-4 text-sm mt-4">
+            <div className="flex flex-wrap gap-4 text-sm mt-4 lg:flex-col">
               {authorValue?.EMAIL && (
                 <a
                   href={`mailto:${authorValue.EMAIL}`}

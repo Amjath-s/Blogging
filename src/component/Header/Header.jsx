@@ -28,33 +28,36 @@ function Header() {
         <div className="flex flex-row w-full  item-center  relative">
           <div className="absolute flex-row flex justify-between">
             <div className="">
-              <Link to ="/">    
-          <Logo />
+              <Link to="/">
+                <Logo />
               </Link>
-        </div>
-            <div className="hidden md:block">
-            {Component.map((search) =>
-              (
-                search.active &&(search.component)
-              
+            </div>
+            <div>
+              {Component.map((search, index) => (
+                <div key={index} className="hidden sm:block">
+                  {search.active && search.component}
+                </div>
               ))}
-          {/* <Search/> */}
-       </div>
-        </div>
+              {/* <Search/> */}
+            </div>
+          </div>
         </div>
 
-        <div className= {`flex flex-row w-full  justify-end  `}>
+        <div className={`flex flex-row w-full  justify-end  `}>
           {navItems.map(
             (item) =>
               item.active && (
-                <button key={item.slug} className={`px-3 py-2 rounded-md ${location.pathname === item.slug
-                    ? " text-blue-400 font-bold "
-                    : "text-gray-700 hover:bg-gray-200"
-                  }`
-                
-                
-                }
-            onClick={() => { handleNavigate(item.slug) }}>
+                <button
+                  key={item.slug}
+                  className={`px-3 py-2 rounded-md ${
+                    location.pathname === item.slug
+                      ? " text-blue-400 font-bold "
+                      : "text-gray-700 hover:bg-gray-200"
+                  }`}
+                  onClick={() => {
+                    handleNavigate(item.slug);
+                  }}
+                >
                   {item.name}
                 </button>
               )
