@@ -11,7 +11,7 @@ function Trending() {
     // For now, we'll just log to the console
     console.log("Fetching trending data...");
     appwriteService.tredingpost().then((posts) => {
-    
+      console.log("Trending posts:", posts);
       setTrendingData(posts.documents || []);
     });
   }, []);
