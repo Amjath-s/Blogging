@@ -11,9 +11,7 @@ function PostForm({ post }) {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
 
-  console.log("PostForm received post:", post);
-  console.log("Post Title:", post?.Title);
-  console.log("Post Content:", post?.Content);
+
 
   const { register, handleSubmit, watch, setValue, control, getValues } =
     useForm({

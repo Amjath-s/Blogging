@@ -10,13 +10,13 @@ function FollowBtn({ FolloweeId, FollowerId, children }) {
     setLoading(true);
     try {
       if (!isfollow) {
-        console.log("the isfllow on eif",isfollow)
+       
         await userfollowservice.putUserFollow({
           userFollower: FollowerId,
           userFollowee: FolloweeId,
         });
       } else {
-        console.log("the if else is working");
+        
         await userfollowservice.deleteUserFollow({
           userFollower: FollowerId,
           userFollowee: FolloweeId,
@@ -34,12 +34,12 @@ function FollowBtn({ FolloweeId, FollowerId, children }) {
   useEffect(() => {
     async function fetchFollowStatus() {
       try {
-        console.log("fetch follow");
+       
         const data = await userfollowservice.checkFollow({
           userFollower: FollowerId,
           userFollowee: FolloweeId,
         });
-        console.log("the data checking of follow", data);
+     
 
         setIsFollow(Array.isArray(data.documents) && data.documents.length > 0); // Set true if following, false otherwise
       } catch (error) {

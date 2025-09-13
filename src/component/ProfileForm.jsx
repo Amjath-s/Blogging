@@ -111,7 +111,7 @@ function ProfileForm() {
       ? await appwriteService.uplaodFile(data.image[0])
       : null;
     const fileId = file ? file.$id : null;
-    console.log("   the file id ",fileId)
+
 
     const authInfo = await appwriteAuthservice.postAuthorInfo({
       ...data,

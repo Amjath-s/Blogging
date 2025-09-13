@@ -67,15 +67,16 @@ export class AuthService {
       return true;
     }
   }
-    async loginWithGoogle(redirectUrl = window.location.origin) {
+    async loginWithGoogle() {
       console.log("this thingis wokring or not ")
+      const redirectUrl = window.location.origin; 
       try { 
         // This will redirect the user to Google for authentication
         return await this.account.createOAuth2Session(
           "google",
-          "http://localhost:5173/", // Success redirect URL
-          "http://localhost:5173/" // Failure redirect URL
-        )
+          redirectUrl, // Success redirect URL
+          redirectUrl // Failure redirect URL
+        );
   
 
         
