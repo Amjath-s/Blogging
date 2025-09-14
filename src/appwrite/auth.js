@@ -2,7 +2,7 @@ import { use } from "react";
 import config from "../conf/config";
 import authorService from "./authorService";
 import { Client, Account, ID } from "appwrite";
-import { redirect } from "react-router-dom";
+
 
 export class AuthService {
   client = new Client();
