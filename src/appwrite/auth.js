@@ -4,6 +4,7 @@ import authorService from "./authorService";
 import { Client, Account, ID } from "appwrite";
 
 
+
 export class AuthService {
   client = new Client();
   account;
@@ -72,11 +73,11 @@ export class AuthService {
      
       try { 
         // This will redirect the user to Google for authentication
-        redirectUrl = window.location.origin;
+       const  redirect = window.location.origin;
         return await this.account.createOAuth2Session(
           "google",
-          redirectUrl, // Success redirect URL
-          "http://localhost:5173/" // Failure redirect URL
+          redirect, // Success redirect URL
+          // Failure redirect URL
         );
   
 
